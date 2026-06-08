@@ -1,4 +1,4 @@
-import { CategoryTree, TreePath } from '../index';
+import { CategoryTree, TreePath, FindResult } from '../index';
 
 export class CategoryService {
   getActiveLeafPaths(tree: CategoryTree[]): TreePath[] {
@@ -15,5 +15,34 @@ export class CategoryService {
 
     traverse(tree);
     return paths.sort((a, b) => a.join('/').localeCompare(b.join('/')));
+  }
+
+  findById(tree: CategoryTree[], id: string): FindResult | null {
+    const search = (
+      nodes: CategoryTree[],
+      path: string[],
+      depth: number,
+      parentId: string | null
+    ): FindResult | null => {
+      for (const node of nodes) {
+        const currentPath = [...path, node.name];
+
+        if (node.id === id) {
+          return {
+            node: { id: node.id, name: node.name, active: node.active },
+            path: currentPath,
+            depth,
+            parentId,
+            isLeaf: node.subcategories.length === 0,
+          };
+        }
+
+        const result = search(node.subcategories, currentPath, depth + 1, node.id);
+        if (result) return result;
+      }
+      return null;
+    };
+
+    return search(tree, [], 0, null);
   }
 }

@@ -1,5 +1,3 @@
-// Interfaces de categoría con su tipado y la extensión de la interfaz para la estructura del árbol
-
 export interface Category {
     id: string;
     name: string;
@@ -10,4 +8,12 @@ export interface CategoryTree extends Category {
     subcategories: CategoryTree[];
 }
 
-export type TreePath = string[]; // Ejemplo: ["Electrónica", "Computadoras", "Laptops"]
+export type TreePath = string[];
+
+export interface FindResult {
+  node: Category;
+  path: TreePath;
+  depth: number;
+  parentId: string | null;
+  isLeaf: boolean;
+}
