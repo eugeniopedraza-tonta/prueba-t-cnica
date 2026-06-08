@@ -1,3 +1,5 @@
+import { CategoryAnomaly } from './errors';
+
 export interface Category {
     id: string;
     name: string;
@@ -16,4 +18,15 @@ export interface FindResult {
   depth: number;
   parentId: string | null;
   isLeaf: boolean;
+}
+
+export interface AnalysisResult {
+  activePaths: TreePath[];
+  counts: {
+    total: number;
+    active: number;
+    inactive: number;
+  };
+  maxDepth: number;
+  anomalies: CategoryAnomaly[];
 }
