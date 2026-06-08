@@ -19,3 +19,4 @@ Claude Code actuó como par de programación: generó código, propuso estructur
 
 - El import en `category.service.ts` fue cambiado de `'../domain/category'` a `'../index'` por el desarrollador
 - `jest.config.ts` fue convertido a `jest.config.js` para compatibilidad con Jest 30 sin `ts-node`
+- Se corrigió un test de Phase 3 donde el dato de prueba no coincidía con las assertions esperadas (nodo cambiado de `active: false` a `active: true`)
